@@ -11,6 +11,23 @@
 .side-bar-header {
   height: 100px;
   padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-name a{
+  font-size: 16px;
+  color:  #FAFAFA;
+  text-decoration: none;
+}
+
+.create-room a {
+  font-size: 10px;
+  padding: 14px;
+  border: 1px solid lightblue;
+  color: deepskyblue;
+  text-decoration: none;
 }
 
 .rooms {
