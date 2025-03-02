@@ -1,5 +1,38 @@
 class MessagesController < ApplicationController
   def index
-    @user = User.new(params[:id])
+    @message = Message.new
+    @room = Room.find(params[:room_id])
+    @messages = @room.messages.includes(:user)
   end
+
+  def create
+    @room = Room.find(params[:room_id])
+    @message = @room.messages.new(message_params)
+    if @message.save
+      redirect_to room_messages_path
+    else
+      @messages = @room.messages.includes(:user)
+      render :index, status: :unprocessable_entity
+    end
+  end
+
+  private
+  def message_params
+    params.require(:message).permit(:content).merge(user_id: current_user.id)
+  end
+  # def create
+  #   @message = Message.new(create_params)
+  #   if @message.save
+  #     flash[:success] = "Message succcreate_params"
+  #     redirect_to @message
+  #   else
+  #     flash[:error] = "Something went wrong"
+  #     render 'new'
+  #   end
+  # end
+
+  # private
+  # def create_params
+  #   params.require(:message).permit(:content, :user, :room)
+  # end
 end
