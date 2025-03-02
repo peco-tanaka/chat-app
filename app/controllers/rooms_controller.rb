@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   def index
+    @rooms = Room.all
   end
 
   def new
@@ -10,7 +11,7 @@ class RoomsController < ApplicationController
     @room = Room.new(room_params)
     if @room.save
       flash[:success] = "room successfully created"
-      redirect_to room_path
+      redirect_to root_path
     else
       flash[:error] = "Something went wrong"
       render :new, status: :unprocessable_entity
