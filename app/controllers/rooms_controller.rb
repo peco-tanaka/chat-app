@@ -18,6 +18,17 @@ class RoomsController < ApplicationController
     end
   end
 
+  def destroy
+    room = Room.find(params[:id])
+    if room.destroy
+      flash[:success] = 'Room was successfully deleted.'
+      redirect_to root_path
+    else
+      flash[:error] = 'Something went wrong'
+      render :index, status: :unprocessable_entity
+    end
+  end
+
   private
   def room_params
     params.require(:room).permit(:name, user_ids: [])
